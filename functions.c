@@ -230,3 +230,24 @@ void Create_a_Service(Node** pList) {
 		printf("New Service Added Successfully!!!");
 	}
 }
+
+void printSpecific(Node* pList, const char* name) { 
+
+	int count = 1;
+
+	while (pList != NULL) {
+
+		if (strcmp(pList->data.name, name) == 0) {
+			printf("[%d] Name: %s\n   Category: %s\n   Product: %s\n   Price: %lf\n   Location: %s\n\n", count, pList->data.name, pList->data.category, pList->data.product, pList->data.price, pList->data.location);
+			count++;
+		}
+
+		pList = pList->pNext; 
+	}
+
+}
+
+void clearBuffer() {
+	int c;
+	while ((c = getchar()) != '\n' && c != EOF);
+}
