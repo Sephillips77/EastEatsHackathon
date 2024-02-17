@@ -46,3 +46,84 @@ void about_us(void)
 
 	return 0;
 }
+
+Node* makeNode(Data newData) {	//makes Node and allocates space
+
+	Node* pMem = malloc(sizeof(Node));
+
+	if (pMem != NULL) {
+
+		pMem->pPrev = pMem->pNext = NULL;
+
+		strcpy(pMem->data.name, newData.name);
+		strcpy(pMem->data.category, newData.category);
+		strcpy(pMem->data.product, newData.category);
+		pMem->data.price = newData.price;  
+		strcpy(pMem->data.location, newData.location);
+	}
+
+	return pMem;
+}
+
+int insertAtFront(Node** pList, Data newData) { //inserts new node at the front of the list
+
+	int success = 0;
+
+	Node* pMem = makeNode(newData);
+
+	if (pMem != NULL) {
+
+		success = 1;
+
+		if (*pList != NULL) {
+
+			(*pList)->pPrev = pMem;
+			pMem->pNext = *pList;
+		}
+
+		*pList = pMem;
+	}
+
+	return success; 
+}
+
+void readFile(Node** pList) {	//reads in data from file
+
+	FILE* inputFile = fopen("data.csv", "r");
+
+	if (inputFile == NULL) {
+		printf("The file could not be opened for reading...");
+	}
+
+	char line[256];
+
+	int success = 0;
+
+	while (fgets(line, sizeof(line), inputFile) != NULL) {
+
+		Data data = { 0 };
+
+		char* token = strtok(line, ",");
+		strcpy(data.name, token);
+
+		token = strtok(NULL, ",");
+		strcpy(data.category, token);
+
+		token = strtok(NULL, ","); 
+		strcpy(data.product, token);
+
+		token = strtok(NULL, ","); 
+		data.price = atof(token);
+
+		token = strtok(NULL, ",");
+		strcpy(data.location, token);
+
+		success = insertAtFront(pList, data); 
+	}
+
+	if (success == 1) {
+		printf("All Records Were Loaded Successfully!");
+	}
+
+	fclose(inputFile); 
+}
