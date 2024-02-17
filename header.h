@@ -14,3 +14,11 @@ typedef struct data
 	char seller[25];
 
 }Data;
+
+typedef struct node
+{
+	Node pNext;
+	Node pPrev;
+	Data data;
+
+}Node;
