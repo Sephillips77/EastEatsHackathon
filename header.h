@@ -17,8 +17,8 @@ typedef struct data
 
 typedef struct node
 {
-	Node pNext;
-	Node pPrev;
+	struct node* pNext;
+	struct node* pPrev;
 	Data data;
 
 }Node;
