@@ -11,7 +11,6 @@ typedef struct data
 	char product[25];
 	double price;
 	char location[15];
-	char seller[25];
 
 }Data;
 
