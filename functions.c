@@ -127,3 +127,106 @@ void readFile(Node** pList) {	//reads in data from file
 
 	fclose(inputFile); 
 }
+
+void Create_a_Service(Node** pList) { 
+
+	int success = 0;
+	 
+	Data newData = { "", "", "", 0, "" };
+
+	printf("Create a Service!!!");
+
+	printf("\n\n");
+
+	printf("Enter your name: ");
+
+	fgets(newData.name, sizeof(newData.name), stdin); 
+
+	printf("\n");
+
+	printf("Pick your category:\n");
+	printf("[1] Food\n");
+	printf("[2] Style\n");
+	printf("[3] Entertainment\n");
+	printf("[4] Other\n\n");
+
+	int choice;
+	int valid=0;
+
+	while (valid == 0) {
+
+		scanf("%d", &choice); 
+
+		switch (choice) {
+
+		case 1:
+			strcpy(newData.category, "Food");
+			valid = 1;
+			break;
+		case 2:
+			strcpy(newData.category, "Style");
+			valid = 1;
+			break;
+		case 3:
+			strcpy(newData.category, "Entertainment");
+			valid = 1; 
+			break;
+		case 4:
+			strcpy(newData.category, "Other");
+			valid = 1;  
+			break;
+		default:
+			printf("Invalid Option Selected, Try Again..."); 
+		}
+	}
+
+	printf("\n");
+	printf("Enter your product: ");
+
+	clearBuffer(); 
+
+	fgets(newData.product, sizeof(newData.product), stdin);  
+	 
+	printf("\n"); 
+
+	printf("Enter your price: ");
+	scanf("%lf", &newData.price);
+
+	printf("\n");
+
+	printf("Pick your location\n");
+	printf("[1] North Campus\n");
+	printf("[2] Central Campus\n");
+	printf("[3] South Campus\n");
+	
+	int valid2 = 0;
+
+	while (valid2 == 0) { 
+
+		scanf("%d", &choice); 
+
+		switch (choice) { 
+
+		case 1:
+			strcpy(newData.location, "North Campus"); 
+			valid2 = 1;  
+			break;
+		case 2:
+			strcpy(newData.location, "Central Campus");
+			valid2 = 1; 
+			break; 
+		case 3:
+			strcpy(newData.location, "South Campus"); 
+			valid2 = 1; 
+			break; 
+		default:
+			printf("Invalid Option Selected, Try Again..."); 
+		}
+	}
+
+	success = insertAtFront(pList, newData);
+
+	if (success == 1) {
+		printf("New Service Added Successfully!!!");
+	}
+}
