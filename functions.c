@@ -361,3 +361,16 @@ Node* specificList(Node** pList, const char* filter) {
 	return pNewList; 
 
 }
+
+void printList(Node* pList) {
+
+	int count = 1;
+
+	while (pList != NULL) {
+
+		printf("[%d] Name: %s\n   Category: %s\n   Product: %s\n   Price: %lf\n   Location: %s\n\n", count, pList->data.name, pList->data.category, pList->data.product, pList->data.price, pList->data.location); 
+		count++;  
+
+		pList = pList->pNext;
+	}
+}
