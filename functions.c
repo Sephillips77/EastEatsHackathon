@@ -1,18 +1,18 @@
 #include "header.h" 
 
-void main_menu(Node* pList, const char* services[4], const char* location[3])                            //MAIN MENU!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+void main_menu(Node* pList, const char* services[4], const char* location[3])                         
 {
 	int choice = 0;
 
 	do
 	{
 		system("cls");
-printf("\t\t\t   ______                     ______                            __      \n");
-printf("\t\t\t  / ____/___  __  ______ _   / ____/___  ____  ____  ___  _____/ /______\n");
-printf("\t\t\t / /   / __ \\/ / / / __ `/  / /   / __ \\/ __ \\/ __ \\/ _ \\/ ___/ __/ ___/\n");
-printf("\t\t\t/ /___/ /_/ / /_/ / /_/ /  / /___/ /_/ / / / / / / /  __/ /__/ /_(__  ) \n");
-printf("\t\t\t\\____/\\____/\\__,_/\\__, /   \\____/\\____/_/ /_/_/ /_/\\___/\\___/\\__/____/  \n");
-printf("\t\t\t                 /____/                                                 \n");
+		printf("\t\t\t   ______                     ______                            __      \n");
+		printf("\t\t\t  / ____/___  __  ______ _   / ____/___  ____  ____  ___  _____/ /______\n");
+		printf("\t\t\t / /   / __ \\/ / / / __ `/  / /   / __ \\/ __ \\/ __ \\/ _ \\/ ___/ __/ ___/\n");
+		printf("\t\t\t/ /___/ /_/ / /_/ / /_/ /  / /___/ /_/ / / / / / / /  __/ /__/ /_(__  ) \n");
+		printf("\t\t\t\\____/\\____/\\__,_/\\__, /   \\____/\\____/_/ /_/_/ /_/\\___/\\___/\\__/____/  \n");
+		printf("\t\t\t                 /____/                                                 \n");
 
 		printf("[1] Find a Service\n\n");
 		printf("[2] Create a Service\n\n");
@@ -37,7 +37,7 @@ printf("\t\t\t                 /____/                                           
 	return;
 }
 
-Node* makeNode(Data newData) {	//makes Node and allocates space                                                                MAKE NODE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+Node* makeNode(Data newData) {	//makes Node and allocates space                             
 
 	Node* pMem = malloc(sizeof(Node));
 
@@ -56,7 +56,7 @@ Node* makeNode(Data newData) {	//makes Node and allocates space                 
 	return pMem;
 }
 
-int insertAtFront(Node** pList, Data newData) { //inserts new node at the front of the list                                          INSERT AT FRONT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+int insertAtFront(Node** pList, Data newData) { //inserts new node at the front of the list                                  
 
 	int success = 0;
 
@@ -78,7 +78,7 @@ int insertAtFront(Node** pList, Data newData) { //inserts new node at the front 
 	return success;
 }
 
-void readFile(Node** pList) {	//reads in data from file                                                                       READ FILE!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+void readFile(Node** pList) {	//reads in data from file                                                    
 
 	FILE* inputFile = fopen("data.csv", "r");
 
@@ -110,7 +110,7 @@ void readFile(Node** pList) {	//reads in data from file                         
 		strcpy(data.location, token);
 
 		token = strtok(NULL, "\n");
-		strcpy(data.contact_info, token); 
+		strcpy(data.contact_info, token);
 
 		success = insertAtFront(pList, data);
 	}
@@ -122,17 +122,17 @@ void readFile(Node** pList) {	//reads in data from file                         
 	fclose(inputFile);
 }
 
-void Create_a_Service(Node** pList) {                                                                            //CREATE A SERVICE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+void Create_a_Service(Node** pList) {                                                      
 	system("cls");
 	int success = 0;
 
 	Data newData = { "", "", "", 0, "" };
 
-printf("\t\t\t   ______                __                   _____                 _         \n");
-printf("\t\t\t  / ____/_______  ____ _/ /____     ____ _   / ___/___  ______   __(_)_______ \n");
-printf("\t\t\t / /   / ___/ _ \\/ __ `/ __/ _ \\   / __ `/   \\__ \\/ _ \\/ ___/ | / / / ___/ _ \\\n");
-printf("\t\t\t/ /___/ /  /  __/ /_/ / /_/  __/  / /_/ /   ___/ /  __/ /   | |/ / / /__/  __/\n");
-printf("\t\t\t\\____/_/   \\___/\\__,_/\\__/\\___/   \\__,_/   /____/\\___/_/    |___/_/\\___/\\___/ \n");
+	printf("\t\t\t   ______                __                   _____                 _         \n");
+	printf("\t\t\t  / ____/_______  ____ _/ /____     ____ _   / ___/___  ______   __(_)_______ \n");
+	printf("\t\t\t / /   / ___/ _ \\/ __ `/ __/ _ \\   / __ `/   \\__ \\/ _ \\/ ___/ | / / / ___/ _ \\\n");
+	printf("\t\t\t/ /___/ /  /  __/ /_/ / /_/  __/  / /_/ /   ___/ /  __/ /   | |/ / / /__/  __/\n");
+	printf("\t\t\t\\____/_/   \\___/\\__,_/\\__/\\___/   \\__,_/   /____/\\___/_/    |___/_/\\___/\\___/ \n");
 
 	printf("\n\n");
 
@@ -225,15 +225,15 @@ printf("\t\t\t\\____/_/   \\___/\\__,_/\\__/\\___/   \\__,_/   /____/\\___/_/   
 			printf("Invalid Option Selected, Try Again...");
 		}
 	}
-	
+
 	printf("Enter your contact information: ");
 	clearBuffer();
 
-	fgets(newData.contact_info, sizeof(newData.contact_info), stdin); 
+	fgets(newData.contact_info, sizeof(newData.contact_info), stdin);
 
-	newData.contact_info[strcspn(newData.contact_info, "\n")] = '\0';  
+	newData.contact_info[strcspn(newData.contact_info, "\n")] = '\0';
 
-	printf("\n"); 
+	printf("\n");
 
 	success = insertAtFront(pList, newData);
 
@@ -245,16 +245,16 @@ printf("\t\t\t\\____/_/   \\___/\\__,_/\\__/\\___/   \\__,_/   /____/\\___/_/   
 
 }
 
-void deleteService(Node** pList) {                                                                                    //DELETE SERVIC!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+void deleteService(Node** pList) {                                                                          
 
 	system("cls");
 
 
-printf("\t\t\t    ____       __     __                   _____                 _         \n");
-printf("\t\t\t   / __ \\___  / /__  / /____     ____ _   / ___/___  ______   __(_)_______ \n");
-printf("\t\t\t  / / / / _ \\/ / _ \\/ __/ _ \\   / __ `/   \\__ \\/ _ \\/ ___/ | / / / ___/ _ \\\n");
-printf("\t\t\t / /_/ /  __/ /  __/ /_/  __/  / /_/ /   ___/ /  __/ /   | |/ / / /__/  __/\n");
-printf("\t\t\t/_____/\\___/_/\\___/\\__/\\___/   \\__,_/   /____/\\___/_/    |___/_/\\___/\\___/ \n");
+	printf("\t\t\t    ____       __     __                   _____                 _         \n");
+	printf("\t\t\t   / __ \\___  / /__  / /____     ____ _   / ___/___  ______   __(_)_______ \n");
+	printf("\t\t\t  / / / / _ \\/ / _ \\/ __/ _ \\   / __ `/   \\__ \\/ _ \\/ ___/ | / / / ___/ _ \\\n");
+	printf("\t\t\t / /_/ /  __/ /  __/ /_/  __/  / /_/ /   ___/ /  __/ /   | |/ / / /__/  __/\n");
+	printf("\t\t\t/_____/\\___/_/\\___/\\__/\\___/   \\__,_/   /____/\\___/_/    |___/_/\\___/\\___/ \n");
 	char name[100];
 	int choice;
 	int found = 0;
@@ -331,7 +331,7 @@ printf("\t\t\t/_____/\\___/_/\\___/\\__/\\___/   \\__,_/   /____/\\___/_/    |__
 
 }
 
-void updateFile(Node* pList) {                                                                                  //UPDATE FILE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+void updateFile(Node* pList) {                                                                          
 
 	FILE* outputFile = fopen("data.csv", "w");
 
@@ -351,7 +351,7 @@ void updateFile(Node* pList) {                                                  
 	printf("File has been updated.\n");
 }
 
-void printList(Node* pList) {                                                          //PRINT LIST!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+void printList(Node* pList) {                                                 
 
 	int count = 1;
 
@@ -364,7 +364,7 @@ void printList(Node* pList) {                                                   
 	}
 }
 
-int printSpecific(Node* pList, const char* base, int choice) {                                                        //PRINT SPECIFIC!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+int printSpecific(Node* pList, const char* base, int choice) {                                
 
 	system("cls");
 
@@ -382,14 +382,14 @@ int printSpecific(Node* pList, const char* base, int choice) {                  
 		{
 		case 1:
 			if (strcmp(pList->data.name, base) == 0) {
-				printf("[%d] Name: %s\n   Category: %s\n   Product: %s\n   Price: %lf\n   Location: %s   Contact Information: %s\n\n", count, pList->data.name, pList->data.category, pList->data.product, pList->data.price, pList->data.location, pList->data.contact_info);
+				printf("[%d] Name: %s\n   Category: %s\n   Product: %s\n   Price: $%.2lf\n   Location: %s\n   Contact Information: %s\n\n", count, pList->data.name, pList->data.category, pList->data.product, pList->data.price, pList->data.location, pList->data.contact_info);
 				count++;
 				found = 1;
 			}
 			break;
 		case 2:
 			if (strcmp(pList->data.category, base) == 0) {
-				printf("[%d] Name: %s\n   Category: %s\n   Product: %s\n   Price: %lf\n   Location: %s   Contact Information: %s\n\n", count, pList->data.name, pList->data.category, pList->data.product, pList->data.price, pList->data.location, pList->data.contact_info);
+				printf("[%d] Name: %s\n   Category: %s\n   Product: %s\n   Price: $%.2lf\n   Location: %s\n   Contact Information: %s\n\n", count, pList->data.name, pList->data.category, pList->data.product, pList->data.price, pList->data.location, pList->data.contact_info);
 				count++;
 				found = 1;
 			}
@@ -405,12 +405,16 @@ int printSpecific(Node* pList, const char* base, int choice) {                  
 	return found;
 }
 
-void clearBuffer() {                                                                      //CLEAR BUFFER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+void clearBuffer() {                                                              
 	int c;
 	while ((c = getchar()) != '\n' && c != EOF);
 }
 
-int Find_a_Service(Node** pList, const char* services[4], const char* location[3]) {                      //FIND A SERVICE!!!!!!!!!!!!!!!!!!!!!!!!!!!
+int Find_a_Service(Node** pList, const char* services[4], const char* location[3]) {                  
+
+	const char* sort[4] = { "Price Low to High", "Price High to Low", "Name", "Location" };
+	int sort_choice = 0;
+
 
 	system("cls");
 	if (*pList == NULL)
@@ -426,11 +430,11 @@ int Find_a_Service(Node** pList, const char* services[4], const char* location[3
 
 
 	int choice = 0;
-printf("\t\t\t    _______           __            _____                 _         \n");
-printf("\t\t\t   / ____(_)___  ____/ /  ____ _   / ___/___  ______   __(_)_______ \n");
-printf("\t\t\t  / /_  / / __ \\/ __  /  / __ `/   \\__ \\/ _ \\/ ___/ | / / / ___/ _ \\\n");
-printf("\t\t\t / __/ / / / / / /_/ /  / /_/ /   ___/ /  __/ /   | |/ / / /__/  __/\n");
-printf("\t\t\t/_/   /_/_/ /_/\\__,_/   \\__,_/   /____/\\___/_/    |___/_/\\___/\\___/ \n");
+	printf("\t\t\t    _______           __            _____                 _         \n");
+	printf("\t\t\t   / ____(_)___  ____/ /  ____ _   / ___/___  ______   __(_)_______ \n");
+	printf("\t\t\t  / /_  / / __ \\/ __  /  / __ `/   \\__ \\/ _ \\/ ___/ | / / / ___/ _ \\\n");
+	printf("\t\t\t / __/ / / / / / /_/ /  / /_/ /   ___/ /  __/ /   | |/ / / /__/  __/\n");
+	printf("\t\t\t/_/   /_/_/ /_/\\__,_/   \\__,_/   /____/\\___/_/    |___/_/\\___/\\___/ \n");
 	printf("Pick your Service\n\n\n");
 	printf("[1] Food\n\n");
 	printf("[2] Style\n\n");
@@ -441,7 +445,6 @@ printf("\t\t\t/_/   /_/_/ /_/\\__,_/   \\__,_/   /____/\\___/_/    |___/_/\\___/
 	Node* pCur = *pList;
 	Node* pSorted = NULL;
 	printf("\t\t\t\t\tService : %s\n\n", services[choice - 1]);
-
 	while (pCur != NULL)
 	{
 
@@ -473,27 +476,31 @@ printf("\t\t\t/_/   /_/_/ /_/\\__,_/   \\__,_/   /____/\\___/_/    |___/_/\\___/
 		pCur = pCur->pNext;
 
 	}
+	
 	if (pSorted != NULL)
 	{
+	
+				printSpecific(pSorted, services[choice - 1], 2);
 
-		printSpecific(*pList, services[choice - 1], 2);
+		
 	}
 	else
 	{
 		printf("There are no Services avaliable, please try again later\n\n");
 
 	}
-
+	free(pSorted);
 	system("pause");
 	return success;
 }
 
-Node* specificList(Node** pList, const char* filter) {                                                    //SPECIFIC LIST!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
+
+Node* specificList(Node** pList, const char* filter) {                                                 
 
 	Node* pCur = *pList;
 	Node* pNewList = NULL;
 	Node* pTail = NULL;
-	 
+
 	while (pCur != NULL) {
 
 		if (strcmp(pCur->data.name, filter) == 0) {
