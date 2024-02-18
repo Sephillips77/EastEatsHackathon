@@ -37,3 +37,4 @@ void updateFile(Node* pList);
 int Find_a_Service(Node** pList, const char* services[4], const char* location[3]);
 Node* specificList(Node** pList, const char* filter);
 void printList(Node* pList);
+void sort_list(Node** pHead, int choice);
