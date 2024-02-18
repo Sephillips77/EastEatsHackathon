@@ -7,7 +7,13 @@ void main_menu(Node* pList, const char* services[4], const char* location[3])   
 	do
 	{
 		system("cls");
-		printf("\t\t\t\t\tCoug Connects\n");
+printf("\t\t\t   ______                     ______                            __      \n");
+printf("\t\t\t  / ____/___  __  ______ _   / ____/___  ____  ____  ___  _____/ /______\n");
+printf("\t\t\t / /   / __ \\/ / / / __ `/  / /   / __ \\/ __ \\/ __ \\/ _ \\/ ___/ __/ ___/\n");
+printf("\t\t\t/ /___/ /_/ / /_/ / /_/ /  / /___/ /_/ / / / / / / /  __/ /__/ /_(__  ) \n");
+printf("\t\t\t\\____/\\____/\\__,_/\\__, /   \\____/\\____/_/ /_/_/ /_/\\___/\\___/\\__/____/  \n");
+printf("\t\t\t                 /____/                                                 \n");
+
 		printf("[1] Find a Service\n\n");
 		printf("[2] Create a Service\n\n");
 		printf("[3] Delete a Service\n\n");
@@ -122,7 +128,11 @@ void Create_a_Service(Node** pList) {                                           
 
 	Data newData = { "", "", "", 0, "" };
 
-	printf("Create a Service!!!");
+printf("\t\t\t   ______                __                   _____                 _         \n");
+printf("\t\t\t  / ____/_______  ____ _/ /____     ____ _   / ___/___  ______   __(_)_______ \n");
+printf("\t\t\t / /   / ___/ _ \\/ __ `/ __/ _ \\   / __ `/   \\__ \\/ _ \\/ ___/ | / / / ___/ _ \\\n");
+printf("\t\t\t/ /___/ /  /  __/ /_/ / /_/  __/  / /_/ /   ___/ /  __/ /   | |/ / / /__/  __/\n");
+printf("\t\t\t\\____/_/   \\___/\\__,_/\\__/\\___/   \\__,_/   /____/\\___/_/    |___/_/\\___/\\___/ \n");
 
 	printf("\n\n");
 
@@ -239,7 +249,12 @@ void deleteService(Node** pList) {                                              
 
 	system("cls");
 
-	printf("\t\t\t\t\tDelete a Service\n\n");
+
+printf("\t\t\t    ____       __     __                   _____                 _         \n");
+printf("\t\t\t   / __ \\___  / /__  / /____     ____ _   / ___/___  ______   __(_)_______ \n");
+printf("\t\t\t  / / / / _ \\/ / _ \\/ __/ _ \\   / __ `/   \\__ \\/ _ \\/ ___/ | / / / ___/ _ \\\n");
+printf("\t\t\t / /_/ /  __/ /  __/ /_/  __/  / /_/ /   ___/ /  __/ /   | |/ / / /__/  __/\n");
+printf("\t\t\t/_____/\\___/_/\\___/\\__/\\___/   \\__,_/   /____/\\___/_/    |___/_/\\___/\\___/ \n");
 	char name[100];
 	int choice;
 	int found = 0;
@@ -411,7 +426,11 @@ int Find_a_Service(Node** pList, const char* services[4], const char* location[3
 
 
 	int choice = 0;
-	printf("\t\t\t\t\tFind a Service\n\n");
+printf("\t\t\t    _______           __            _____                 _         \n");
+printf("\t\t\t   / ____(_)___  ____/ /  ____ _   / ___/___  ______   __(_)_______ \n");
+printf("\t\t\t  / /_  / / __ \\/ __  /  / __ `/   \\__ \\/ _ \\/ ___/ | / / / ___/ _ \\\n");
+printf("\t\t\t / __/ / / / / / /_/ /  / /_/ /   ___/ /  __/ /   | |/ / / /__/  __/\n");
+printf("\t\t\t/_/   /_/_/ /_/\\__,_/   \\__,_/   /____/\\___/_/    |___/_/\\___/\\___/ \n");
 	printf("Pick your Service\n\n\n");
 	printf("[1] Food\n\n");
 	printf("[2] Style\n\n");
