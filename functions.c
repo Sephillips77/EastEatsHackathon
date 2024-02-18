@@ -22,11 +22,81 @@ void main_menu(void)
 	return;
 }
 
-int Find_a_Service(Node** pList)
+int Find_a_Service(Node** pList, const char* services[4], const char* location[3])
 {
+	system("cls");
+	if (*pList == NULL)
+	{
+		printf("There are no Services avaliable, please try again later\n\n");
+		system("pause");
+		return 1;
+	}
+
+	
+
 	int success = 0;
+	
+	FILE* infile = fopen("data.csv", "w");
+	
+	
+	
+	int choice = 0;
+	printf("\t\t\t\t\tFind a Service\n\n");
+	printf("Pick your Service\n\n\n");
+	printf("[1] Food\n\n");
+	printf("[2] Style\n\n");
+	printf("[3] Entertainment\n\n");
+	printf("[4] Other\n\n");
+	scanf("%d", &choice);
+	
+	Node* pCur = *pList;
+	Node* pTemp = NULL;
 
+	printf("%s", services[choice-1]);
 
+	while (pCur != NULL)
+	{
+		printf("loop");
+		while ((strcmp(pCur->data.category, services[choice - 1]) != 0) && pCur != NULL)
+		{
+			printf("continue");
+			pCur->pPrev = pCur;
+			pCur = pCur->pNext;
+
+		}
+		if (pCur != NULL)
+		{
+
+			if (pTemp == NULL)
+			{
+				pTemp = pCur;
+			}
+			else
+				pTemp->pNext = pCur;
+			pTemp->pPrev = pTemp;
+			pTemp = pTemp->pNext;
+			pCur->pPrev = pCur;
+			pCur = pCur->pNext;
+		}
+	}
+	if (pTemp != NULL)
+	{
+		printf("temp has smthn!");
+		while (pTemp->pPrev != NULL)
+		{
+			printf("%s\n", pTemp->pPrev->data.name);
+			pTemp = pTemp->pPrev;
+
+		}
+	}
+	else
+	{
+		printf("There are no Services avaliable, please try again later\n\n");
+		system("pause");
+
+	}
+	printf("u made it!");
+	fclose(infile);
 	return success;
 }
 
