@@ -1,5 +1,34 @@
 #include "header.h" 
 
+void main_menu(Node* pList, const char* services[4], const char* location[3])
+{
+	int choice = 0;
+	do
+	{
+		system("cls");
+		printf("\t\t\t\t\tCoug Connects\n");
+		printf("[1] Find a Service\n\n");
+		printf("[2] Create a Service\n\n");
+		printf("[3] About us\n\n");
+		printf("[4] Exit Application\n\n");
+		scanf("%d", &choice);
+
+		switch (choice)
+		{
+		case 1: Find_a_Service(&pList, services, location); break;
+		case 2: Create_a_Service(&pList); updateFile(pList); break;
+		}
+			
+
+
+	} while (choice != 4);
+
+	system("cls");
+	printf("\t\t\t\t\tSee you next time!\n\n");
+
+	return;
+}
+
 Node* makeNode(Data newData) {	//makes Node and allocates space
 
 	Node* pMem = malloc(sizeof(Node));
@@ -10,8 +39,8 @@ Node* makeNode(Data newData) {	//makes Node and allocates space
 
 		strcpy(pMem->data.name, newData.name);
 		strcpy(pMem->data.category, newData.category);
-		strcpy(pMem->data.product, newData.product); 
-		pMem->data.price = newData.price;  
+		strcpy(pMem->data.product, newData.product);
+		pMem->data.price = newData.price;
 		strcpy(pMem->data.location, newData.location);
 	}
 
@@ -37,7 +66,7 @@ int insertAtFront(Node** pList, Data newData) { //inserts new node at the front 
 		*pList = pMem;
 	}
 
-	return success; 
+	return success;
 }
 
 void readFile(Node** pList) {	//reads in data from file
@@ -62,29 +91,29 @@ void readFile(Node** pList) {	//reads in data from file
 		token = strtok(NULL, ",");
 		strcpy(data.category, token);
 
-		token = strtok(NULL, ","); 
+		token = strtok(NULL, ",");
 		strcpy(data.product, token);
 
-		token = strtok(NULL, ","); 
+		token = strtok(NULL, ",");
 		data.price = atof(token);
 
 		token = strtok(NULL, ",");
 		strcpy(data.location, token);
 
-		success = insertAtFront(pList, data); 
+		success = insertAtFront(pList, data);
 	}
 
 	if (success == 1) {
 		printf("All Records Were Loaded Successfully!\n\n");
 	}
 
-	fclose(inputFile); 
+	fclose(inputFile);
 }
 
-void Create_a_Service(Node** pList) { 
+void Create_a_Service(Node** pList) {
 
 	int success = 0;
-	 
+
 	Data newData = { "", "", "", 0, "" };
 
 	printf("Create a Service!!!");
@@ -93,8 +122,10 @@ void Create_a_Service(Node** pList) {
 
 	printf("Enter your name: ");
 
-	fgets(newData.name, sizeof(newData.name), stdin); 
+	clearBuffer();
 
+	fgets(newData.name, sizeof(newData.name), stdin);
+	newData.name[strcspn(newData.name, "\n")] = '\0';
 	printf("\n");
 
 	printf("Pick your category:\n");
@@ -104,11 +135,11 @@ void Create_a_Service(Node** pList) {
 	printf("[4] Other\n\n");
 
 	int choice;
-	int valid=0;
+	int valid = 0;
 
 	while (valid == 0) {
 
-		scanf("%d", &choice); 
+		scanf("%d", &choice);
 
 		switch (choice) {
 
@@ -122,25 +153,27 @@ void Create_a_Service(Node** pList) {
 			break;
 		case 3:
 			strcpy(newData.category, "Entertainment");
-			valid = 1; 
+			valid = 1;
 			break;
 		case 4:
 			strcpy(newData.category, "Other");
-			valid = 1;  
+			valid = 1;
 			break;
 		default:
-			printf("Invalid Option Selected, Try Again..."); 
+			printf("Invalid Option Selected, Try Again...");
 		}
 	}
 
 	printf("\n");
 	printf("Enter your product: ");
 
-	clearBuffer(); 
+	clearBuffer();
 
-	fgets(newData.product, sizeof(newData.product), stdin);  
-	 
-	printf("\n"); 
+	fgets(newData.product, sizeof(newData.product), stdin);
+
+	newData.product[strcspn(newData.product, "\n")] = '\0';
+
+	printf("\n");
 
 	printf("Enter your price: ");
 	scanf("%lf", &newData.price);
@@ -151,29 +184,29 @@ void Create_a_Service(Node** pList) {
 	printf("[1] North Campus\n");
 	printf("[2] Central Campus\n");
 	printf("[3] South Campus\n");
-	
+
 	int valid2 = 0;
 
-	while (valid2 == 0) { 
+	while (valid2 == 0) {
 
-		scanf("%d", &choice); 
+		scanf("%d", &choice);
 
-		switch (choice) { 
+		switch (choice) {
 
 		case 1:
-			strcpy(newData.location, "North Campus"); 
-			valid2 = 1;  
+			strcpy(newData.location, "North Campus");
+			valid2 = 1;
 			break;
 		case 2:
 			strcpy(newData.location, "Central Campus");
-			valid2 = 1; 
-			break; 
+			valid2 = 1;
+			break;
 		case 3:
-			strcpy(newData.location, "South Campus"); 
-			valid2 = 1; 
-			break; 
+			strcpy(newData.location, "South Campus");
+			valid2 = 1;
+			break;
 		default:
-			printf("Invalid Option Selected, Try Again..."); 
+			printf("Invalid Option Selected, Try Again...");
 		}
 	}
 
@@ -182,13 +215,17 @@ void Create_a_Service(Node** pList) {
 	if (success == 1) {
 		printf("New Service Added Successfully!!!");
 	}
+
+	
+
+
 }
 
 void deleteService(Node** pList) {
 
 	char name[100];
 	int choice;
-	int found=0; 
+	int found = 0;
 	int count = 1;
 
 	while (found == 0) {
@@ -206,38 +243,38 @@ void deleteService(Node** pList) {
 	printf("Choose which service to delete: ");
 	scanf("%d", &choice);
 
-	Node* newList = specificList(pList, name);  
+	Node* newList = specificList(pList, name);
 
 	printf("\n");
 	getchar();
 
-	Node* current = newList; 
+	Node* current = newList;
 	Node* previous = NULL;
 
-	while (current != NULL) { 
-	 
+	while (current != NULL) {
+
 		if (count == choice) {
 
-			if (previous == NULL) { 
-				newList = current->pNext;  
-			} 
-			else {									
-				printf("Entered deleteion"); 
-				previous->pNext = current->pNext; 
+			if (previous == NULL) {
+				newList = current->pNext;
+			}
+			else {
+				printf("Entered deleteion");
+				previous->pNext = current->pNext;
 			}
 
-			free(current); 
+			free(current);
 			break;
 		}
-		 
-		previous = current; 
-		current = current->pNext; 
+
+		previous = current;
+		current = current->pNext;
 		count++;
 	}
-	
+
 	printList(newList);
-	    
-	updateFile(newList);      
+
+	updateFile(newList);
 
 }
 
@@ -251,11 +288,11 @@ void updateFile(Node* pList) {
 	}
 
 	while (pList != NULL) {
-		fprintf(outputFile, "%s,%s,%s,%2lf,%s", pList->data.name, pList->data.category, pList->data.product, pList->data.price, pList->data.location);
+		fprintf(outputFile, "%s,%s,%s,%2lf,%s\n", pList->data.name, pList->data.category, pList->data.product, pList->data.price, pList->data.location);
 		pList = pList->pNext;
 	}
 
-	fclose(outputFile); 
+	fclose(outputFile);
 	printf("File has been updated.\n");
 }
 
@@ -265,14 +302,14 @@ void printList(Node* pList) {
 
 	while (pList != NULL) {
 
-		printf("[%d] Name: %s\n   Category: %s\n   Product: %s\n   Price: %lf\n   Location: %s\n\n", count, pList->data.name, pList->data.category, pList->data.product, pList->data.price, pList->data.location); 
-		count++;  
+		printf("[%d] Name: %s\n   Category: %s\n   Product: %s\n   Price: %lf\n   Location: %s\n\n", count, pList->data.name, pList->data.category, pList->data.product, pList->data.price, pList->data.location);
+		count++;
 
 		pList = pList->pNext;
 	}
 }
 
-int printSpecific(Node* pList, const char* name) { 
+int printSpecific(Node* pList, const char* name) {
 
 	int count = 1;
 	int found = 0;
@@ -285,7 +322,7 @@ int printSpecific(Node* pList, const char* name) {
 			found = 1;
 		}
 
-		pList = pList->pNext; 
+		pList = pList->pNext;
 	}
 
 	if (found == 0) {
@@ -381,36 +418,36 @@ int Find_a_Service(Node** pList, const char* services[4], const char* location[3
 
 Node* specificList(Node** pList, const char* filter) {
 
-	Node* pCur = *pList; 
-	Node* pNewList = NULL;   
-	Node* pTail = NULL;      
+	Node* pCur = *pList;
+	Node* pNewList = NULL;
+	Node* pTail = NULL;
 
-	while (pCur != NULL) {  
+	while (pCur != NULL) {
 
-		if (strcmp(pCur->data.name, filter) == 0) {    
-			
+		if (strcmp(pCur->data.name, filter) == 0) {
+
 			Node* newNode = (Node*)malloc(sizeof(Node));
 			if (newNode == NULL) {
-				printf("Memory allocation failed\n"); 
+				printf("Memory allocation failed\n");
 				return 1;
 			}
 
-			newNode->data = pCur->data;  
-			newNode->pNext = NULL;  
+			newNode->data = pCur->data;
+			newNode->pNext = NULL;
 
-			if (pNewList == NULL) { 
-				pNewList = newNode; 
+			if (pNewList == NULL) {
+				pNewList = newNode;
 				pTail = newNode;
 			}
 			else {
 				pTail->pNext = newNode;
 			}
 
-			pTail = newNode; 
+			pTail = newNode;
 		}
-		pCur = pCur->pNext; 
-	} 
+		pCur = pCur->pNext;
+	}
 
-	return pNewList; 
+	return pNewList;
 
 }
