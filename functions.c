@@ -321,3 +321,40 @@ void clearBuffer() {
 	int c;
 	while ((c = getchar()) != '\n' && c != EOF);
 }
+
+Node* specificList(Node** pList, const char* filter) {
+
+	Node* pCur = *pList; 
+	Node* pNewList = NULL;   
+	Node* pTail = NULL;      
+
+	while (pCur != NULL) {  
+
+		if (strcmp(pCur->data.name, filter) == 0) {    
+			
+			Node* newNode = (Node*)malloc(sizeof(Node));
+			if (newNode == NULL) {
+				printf("Memory allocation failed\n"); 
+				return 1;
+			}
+
+			newNode->data = pCur->data;  
+			newNode->pNext = NULL;  
+			newNode->pPrev = pTail; 
+
+
+			if (pNewList == NULL) { 
+				pNewList = newNode; 
+			}
+			else {
+				pTail->pNext = newNode;
+			}
+
+			pTail = newNode; 
+		}
+		pCur = pCur->pNext; 
+	} 
+
+	return pNewList; 
+
+}
