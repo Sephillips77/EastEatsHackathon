@@ -1,124 +1,4 @@
-#include "header.h"
-
-
-void main_menu(void)
-{
-	int choice = 0;
-	do
-	{
-		system("cls");
-		printf("\t\t\t\t\tCoug Connects\n");
-		printf("[1] Find a Service\n\n");
-		printf("[2] Create a Service\n\n");
-		printf("[3] About us\n\n");
-		printf("[4] Exit Application\n\n");
-		scanf("%d", &choice);
-
-	} while (choice != 4);
-
-	system("cls");
-	printf("\t\t\t\t\tSee you next time!\n\n");
-
-	return;
-}
-
-int Find_a_Service(Node** pList, const char* services[4], const char* location[3])
-{
-	system("cls");
-	if (*pList == NULL)
-	{
-		printf("There are no Services avaliable, please try again later\n\n");
-		system("pause");
-		return 1;
-	}
-
-	
-
-	int success = 0;
-	
-	
-	
-	
-	int choice = 0;
-	printf("\t\t\t\t\tFind a Service\n\n");
-	printf("Pick your Service\n\n\n");
-	printf("[1] Food\n\n");
-	printf("[2] Style\n\n");
-	printf("[3] Entertainment\n\n");
-	printf("[4] Other\n\n");
-	scanf("%d", &choice);
-	
-	Node* pCur = *pList;
-	Node* pSorted = NULL;
-	printf("%s", services[choice-1]);
-
-	while (pCur != NULL)
-	{
-		printf("\nloop\n");
-
-		if (strcmp(pCur->data.category, services[choice - 1]) == 0)
-		{
-			Node* newNode = malloc(sizeof(Node));
-			newNode->data = pCur->data;
-			newNode->pNext = NULL;
-
-			printf("anoying asf");
-			if (pSorted == NULL)
-			{
-				printf("boom created");
-				pSorted = newNode;
-			}
-			else
-			{
-				printf("added");
-				Node* temp = pSorted;
-				while (temp->pNext != NULL)
-				{
-					temp = temp->pNext;
-				}
-				temp->pNext = newNode;
-
-			}
-		}
-		pCur = pCur->pNext;
-		printf("end loop");
-	}
-	if (pSorted != NULL)
-	{
-		printf("temp has smthn!\n\n");
-		while (pSorted != NULL)
-		{
-			printf("Name : %s\n", pSorted->data.name);
-			pSorted = pSorted->pNext;
-
-		}
-	}
-	else
-	{
-		printf("There are no Services avaliable, please try again later\n\n");
-
-	}
-	printf("u made it!");
-	system("pause");
-	return success;
-}
-
-int Create_a_Service(Node** pList)
-{
-	int success = 0;
-
-
-	return success;
-}
-
-void about_us(void)
-{
-
-
-
-
-	return 0;
-}
+#include "header.h" 
 
 Node* makeNode(Data newData) {	//makes Node and allocates space
 
@@ -130,7 +10,7 @@ Node* makeNode(Data newData) {	//makes Node and allocates space
 
 		strcpy(pMem->data.name, newData.name);
 		strcpy(pMem->data.category, newData.category);
-		strcpy(pMem->data.product, newData.product);
+		strcpy(pMem->data.product, newData.product); 
 		pMem->data.price = newData.price;  
 		strcpy(pMem->data.location, newData.location);
 	}
@@ -138,7 +18,7 @@ Node* makeNode(Data newData) {	//makes Node and allocates space
 	return pMem;
 }
 
-int insertAtFront(Node** pList, Data newData) { //inserts new node at the front of the list
+int insertAtFront(Node** pList, Data newData) { //inserts new node at the front of the list  
 
 	int success = 0;
 
@@ -195,7 +75,7 @@ void readFile(Node** pList) {	//reads in data from file
 	}
 
 	if (success == 1) {
-		printf("All Records Were Loaded Successfully!");
+		printf("All Records Were Loaded Successfully!\n\n");
 	}
 
 	fclose(inputFile); 
@@ -304,25 +184,199 @@ void Create_a_Service(Node** pList) {
 	}
 }
 
-void printSpecific(Node* pList, const char* name) { 
+void deleteService(Node** pList) {
+
+	char name[100];
+	int choice;
+	int found=0; 
+	int count = 1;
+
+	while (found == 0) {
+
+		printf("Enter your name: ");
+		fgets(name, sizeof(name), stdin);
+
+		name[strcspn(name, "\n")] = '\0'; //removes the newline created by fgets and replaces it with '\0'
+
+		system("cls");
+
+		found = printSpecific(*pList, name);
+	}
+
+	printf("Choose which service to delete: ");
+	scanf("%d", &choice);
+
+	Node* newList = specificList(pList, name);  
+
+	printf("\n");
+	getchar();
+
+	Node* current = newList; 
+	Node* previous = NULL;
+
+	while (current != NULL) { 
+	 
+		if (count == choice) {
+
+			if (previous == NULL) { 
+				newList = current->pNext;  
+			} 
+			else {									
+				printf("Entered deleteion"); 
+				previous->pNext = current->pNext; 
+			}
+
+			free(current); 
+			break;
+		}
+		 
+		previous = current; 
+		current = current->pNext; 
+		count++;
+	}
+	
+	printList(newList);
+	    
+	updateFile(newList);      
+
+}
+
+void updateFile(Node* pList) {
+
+	FILE* outputFile = fopen("data.csv", "w");
+
+	if (outputFile == NULL) {
+		printf("File was not opened properly...");
+		return;
+	}
+
+	while (pList != NULL) {
+		fprintf(outputFile, "%s,%s,%s,%2lf,%s", pList->data.name, pList->data.category, pList->data.product, pList->data.price, pList->data.location);
+		pList = pList->pNext;
+	}
+
+	fclose(outputFile); 
+	printf("File has been updated.\n");
+}
+
+void printList(Node* pList) {
 
 	int count = 1;
+
+	while (pList != NULL) {
+
+		printf("[%d] Name: %s\n   Category: %s\n   Product: %s\n   Price: %lf\n   Location: %s\n\n", count, pList->data.name, pList->data.category, pList->data.product, pList->data.price, pList->data.location); 
+		count++;  
+
+		pList = pList->pNext;
+	}
+}
+
+int printSpecific(Node* pList, const char* name) { 
+
+	int count = 1;
+	int found = 0;
 
 	while (pList != NULL) {
 
 		if (strcmp(pList->data.name, name) == 0) {
 			printf("[%d] Name: %s\n   Category: %s\n   Product: %s\n   Price: %lf\n   Location: %s\n\n", count, pList->data.name, pList->data.category, pList->data.product, pList->data.price, pList->data.location);
 			count++;
+			found = 1;
 		}
 
 		pList = pList->pNext; 
 	}
 
+	if (found == 0) {
+		printf("Name was not found, please try again...\n\n");
+	}
+
+	return found;
 }
 
 void clearBuffer() {
 	int c;
 	while ((c = getchar()) != '\n' && c != EOF);
+}
+
+int Find_a_Service(Node** pList, const char* services[4], const char* location[3]) {
+
+	system("cls");
+	if (*pList == NULL)
+	{
+		printf("There are no Services avaliable, please try again later\n\n");
+		system("pause");
+		return 1;
+	}
+
+
+
+	int success = 0;
+
+
+	int choice = 0;
+	printf("\t\t\t\t\tFind a Service\n\n");
+	printf("Pick your Service\n\n\n");
+	printf("[1] Food\n\n");
+	printf("[2] Style\n\n");
+	printf("[3] Entertainment\n\n");
+	printf("[4] Other\n\n");
+	scanf("%d", &choice);
+
+	Node* pCur = *pList;
+	Node* pSorted = NULL;
+	printf("%s", services[choice - 1]);
+
+	while (pCur != NULL)
+	{
+		printf("\nloop\n");
+
+		if (strcmp(pCur->data.category, services[choice - 1]) == 0)
+		{
+			Node* newNode = malloc(sizeof(Node));
+			newNode->data = pCur->data;
+			newNode->pNext = NULL;
+
+			printf("anoying asf");
+			if (pSorted == NULL)
+			{
+				printf("boom created");
+				pSorted = newNode;
+			}
+			else
+			{
+				printf("added");
+				Node* temp = pSorted;
+				while (temp->pNext != NULL)
+				{
+					temp = temp->pNext;
+				}
+				temp->pNext = newNode;
+
+			}
+		}
+		pCur = pCur->pNext;
+		printf("end loop");
+	}
+	if (pSorted != NULL)
+	{
+		printf("temp has smthn!\n\n");
+		while (pSorted != NULL)
+		{
+			printf("Name : %s\n", pSorted->data.name);
+			pSorted = pSorted->pNext;
+
+		}
+	}
+	else
+	{
+		printf("There are no Services avaliable, please try again later\n\n");
+
+	}
+	printf("u made it!");
+	system("pause");
+	return success;
 }
 
 Node* specificList(Node** pList, const char* filter) {
@@ -344,7 +398,6 @@ Node* specificList(Node** pList, const char* filter) {
 			newNode->data = pCur->data;  
 			newNode->pNext = NULL;  
 
-
 			if (pNewList == NULL) { 
 				pNewList = newNode; 
 				pTail = newNode;
@@ -360,17 +413,4 @@ Node* specificList(Node** pList, const char* filter) {
 
 	return pNewList; 
 
-}
-
-void printList(Node* pList) {
-
-	int count = 1;
-
-	while (pList != NULL) {
-
-		printf("[%d] Name: %s\n   Category: %s\n   Product: %s\n   Price: %lf\n   Location: %s\n\n", count, pList->data.name, pList->data.category, pList->data.product, pList->data.price, pList->data.location); 
-		count++;  
-
-		pList = pList->pNext;
-	}
 }
