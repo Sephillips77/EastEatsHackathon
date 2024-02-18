@@ -130,7 +130,7 @@ Node* makeNode(Data newData) {	//makes Node and allocates space
 
 		strcpy(pMem->data.name, newData.name);
 		strcpy(pMem->data.category, newData.category);
-		strcpy(pMem->data.product, newData.category);
+		strcpy(pMem->data.product, newData.product);
 		pMem->data.price = newData.price;  
 		strcpy(pMem->data.location, newData.location);
 	}
