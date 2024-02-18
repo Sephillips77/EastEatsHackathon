@@ -343,11 +343,11 @@ Node* specificList(Node** pList, const char* filter) {
 
 			newNode->data = pCur->data;  
 			newNode->pNext = NULL;  
-			newNode->pPrev = pTail; 
 
 
 			if (pNewList == NULL) { 
 				pNewList = newNode; 
+				pTail = newNode;
 			}
 			else {
 				pTail->pNext = newNode;
