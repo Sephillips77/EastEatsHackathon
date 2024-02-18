@@ -3,6 +3,7 @@
 void main_menu(Node* pList, const char* services[4], const char* location[3])                            //MAIN MENU!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 {
 	int choice = 0;
+
 	do
 	{
 		system("cls");
@@ -19,7 +20,7 @@ void main_menu(Node* pList, const char* services[4], const char* location[3])   
 		case 2: Create_a_Service(&pList); updateFile(pList); break;
 		case 3: deleteService(&pList); updateFile(pList); break;
 		}
-			
+
 
 
 	} while (choice != 4);
@@ -43,6 +44,7 @@ Node* makeNode(Data newData) {	//makes Node and allocates space                 
 		strcpy(pMem->data.product, newData.product);
 		pMem->data.price = newData.price;
 		strcpy(pMem->data.location, newData.location);
+		strcpy(pMem->data.contact_info, newData.contact_info);
 	}
 
 	return pMem;
@@ -98,8 +100,11 @@ void readFile(Node** pList) {	//reads in data from file                         
 		token = strtok(NULL, ",");
 		data.price = atof(token);
 
-		token = strtok(NULL, "\n");
+		token = strtok(NULL, ",");
 		strcpy(data.location, token);
+
+		token = strtok(NULL, "\n");
+		strcpy(data.contact_info, token); 
 
 		success = insertAtFront(pList, data);
 	}
@@ -210,13 +215,22 @@ void Create_a_Service(Node** pList) {                                           
 			printf("Invalid Option Selected, Try Again...");
 		}
 	}
+	
+	printf("Enter your contact information: ");
+	clearBuffer();
+
+	fgets(newData.contact_info, sizeof(newData.contact_info), stdin); 
+
+	newData.contact_info[strcspn(newData.contact_info, "\n")] = '\0';  
+
+	printf("\n"); 
+
 	success = insertAtFront(pList, newData);
 
 	if (success == 1) {
 		printf("New Service Added Successfully!!!");
+		system("pause");
 	}
-
-	
 
 
 }
@@ -295,10 +309,10 @@ void deleteService(Node** pList) {                                              
 		free(temp2);
 
 	}
-	
 
 
-	
+
+
 
 }
 
@@ -312,7 +326,7 @@ void updateFile(Node* pList) {                                                  
 	}
 
 	while (pList != NULL) {
-		fprintf(outputFile, "%s,%s,%s,%2lf,%s\n", pList->data.name, pList->data.category, pList->data.product, pList->data.price, pList->data.location);
+		fprintf(outputFile, "%s,%s,%s,%2lf,%s,%s\n", pList->data.name, pList->data.category, pList->data.product, pList->data.price, pList->data.location, pList->data.contact_info);
 		pList = pList->pNext;
 	}
 
@@ -328,7 +342,7 @@ void printList(Node* pList) {                                                   
 
 	while (pList != NULL) {
 
-		printf("[%d] Name: %s\n   Category: %s\n   Product: %s\n   Price: %lf\n   Location: %s\n\n", count, pList->data.name, pList->data.category, pList->data.product, pList->data.price, pList->data.location);
+		printf("[%d] Name: %s\n   Category: %s\n   Product: %s\n   Price: %lf\n   Location: %s\n\n", count, pList->data.name, pList->data.category, pList->data.product, pList->data.price, pList->data.location, pList->data.contact_info);
 		count++;
 
 		pList = pList->pNext;
@@ -349,18 +363,18 @@ int printSpecific(Node* pList, const char* base, int choice) {                  
 	}
 	while (pList != NULL) {
 
-		switch(choice)
+		switch (choice)
 		{
 		case 1:
 			if (strcmp(pList->data.name, base) == 0) {
-				printf("[%d] Name: %s\n   Category: %s\n   Product: %s\n   Price: %lf\n   Location: %s\n\n", count, pList->data.name, pList->data.category, pList->data.product, pList->data.price, pList->data.location);
+				printf("[%d] Name: %s\n   Category: %s\n   Product: %s\n   Price: %lf\n   Location: %s   Contact Information: %s\n\n", count, pList->data.name, pList->data.category, pList->data.product, pList->data.price, pList->data.location, pList->data.contact_info);
 				count++;
 				found = 1;
 			}
 			break;
 		case 2:
 			if (strcmp(pList->data.category, base) == 0) {
-				printf("[%d] Name: %s\n   Category: %s\n   Product: %s\n   Price: %lf\n   Location: %s\n\n", count, pList->data.name, pList->data.category, pList->data.product, pList->data.price, pList->data.location);
+				printf("[%d] Name: %s\n   Category: %s\n   Product: %s\n   Price: %lf\n   Location: %s   Contact Information: %s\n\n", count, pList->data.name, pList->data.category, pList->data.product, pList->data.price, pList->data.location, pList->data.contact_info);
 				count++;
 				found = 1;
 			}
@@ -411,7 +425,7 @@ int Find_a_Service(Node** pList, const char* services[4], const char* location[3
 
 	while (pCur != NULL)
 	{
-		
+
 
 		if (strcmp(pCur->data.category, services[choice - 1]) == 0)
 		{
@@ -419,15 +433,15 @@ int Find_a_Service(Node** pList, const char* services[4], const char* location[3
 			newNode->data = pCur->data;
 			newNode->pNext = NULL;
 
-			
+
 			if (pSorted == NULL)
 			{
-				
+
 				pSorted = newNode;
 			}
 			else
 			{
-				
+
 				Node* temp = pSorted;
 				while (temp->pNext != NULL)
 				{
@@ -438,19 +452,19 @@ int Find_a_Service(Node** pList, const char* services[4], const char* location[3
 			}
 		}
 		pCur = pCur->pNext;
-		
+
 	}
 	if (pSorted != NULL)
 	{
-		
-		printSpecific(*pList, services[choice-1], 2);
+
+		printSpecific(*pList, services[choice - 1], 2);
 	}
 	else
 	{
 		printf("There are no Services avaliable, please try again later\n\n");
 
 	}
-	
+
 	system("pause");
 	return success;
 }
@@ -460,7 +474,7 @@ Node* specificList(Node** pList, const char* filter) {                          
 	Node* pCur = *pList;
 	Node* pNewList = NULL;
 	Node* pTail = NULL;
-
+	 
 	while (pCur != NULL) {
 
 		if (strcmp(pCur->data.name, filter) == 0) {
