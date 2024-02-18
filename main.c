@@ -11,12 +11,5 @@ int main(void) {
 
 	main_menu(pHead, services, location);
 	
-
-	//	int success = Find_a_Service(&pHead, services, location); 
-
-	//	Create_a_Service(&pHead);  
-
-	//	deleteService(&pHead);    
-
 	return 0;
 }
