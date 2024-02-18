@@ -12,26 +12,28 @@ typedef struct data
 	char product[25];
 	double price;
 	char location[15];
+	char contact_info[50];
 
 }Data;
 
-typedef struct node 
+typedef struct node
 {
-	struct node* pNext; 
-	struct node* pPrev; 
-	Data data; 
+	struct node* pNext;
+	struct node* pPrev;
+	Data data;
 
 }Node;
 
+
+void main_menu(Node* pList, const char* services[4], const char* location[3]);
 Node* makeNode(Data newData);
-int insertAtFront(Node** pList, Data newData); 
-void readFile(Node** pList);  
-void Create_a_Service(Node** pList);  
+int insertAtFront(Node** pList, Data newData);
+void readFile(Node** pList);
+void Create_a_Service(Node** pList);
 void deleteService(Node** pList);
 void clearBuffer();
 int printSpecific(Node* pList, const char* name);
-void updateFile(Node* pList); 
+void updateFile(Node* pList);
 int Find_a_Service(Node** pList, const char* services[4], const char* location[3]);
 Node* specificList(Node** pList, const char* filter);
 void printList(Node* pList);
-
